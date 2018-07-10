@@ -2,7 +2,7 @@
     <string name="app_name">Spinner</string>
     
     <string name="time_">Select games time frame</string>
-    <string name="submit">Submit</string>
+    <string name="enter">Enter</string>
     <string name="title">Enter your new games title</string>
 
     <string-array name="Time">
