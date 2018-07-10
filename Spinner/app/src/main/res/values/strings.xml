@@ -9,6 +9,10 @@
     <string name="enter_password_here">Enter password here!</string>
     <string name="password">Password:</string>
     <string name="register">Register</string>
+    <string name="spinner_logo">Spinner Logo</string>
+    <string name="new_game">New Game</string>
+    <string name="profile">Profile</string>
+    <string name="exit" >Exit</string>
 
     <string-array name="Time">
         <item>30</item>
