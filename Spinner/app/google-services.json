@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "262540132313",
+    "firebase_url": "https://spinner-494f4.firebaseio.com",
+    "project_id": "spinner-494f4",
+    "storage_bucket": "spinner-494f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262540132313:android:b0a24bcbd2343498",
+        "android_client_info": {
+          "package_name": "edu.fsu.cs.mobile.spinner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "262540132313-64ga9iq4stpc65fi4tr55naiaudlg9cd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLw_URYHlx_DmnPXActqGCIvaZdgkK8C8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

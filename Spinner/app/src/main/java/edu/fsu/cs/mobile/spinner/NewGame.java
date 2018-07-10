@@ -1,4 +1,4 @@
-package com.example.hunter.groupproject;
+package edu.fsu.cs.mobile.spinner;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -33,8 +33,10 @@ public class NewGame extends AppCompatActivity {
         bundle.putString("string title", str_title);
         bundle.putInt("Time_in_seconds", time_val);
 
+        /*
         Intent intent = new Intent(this, GameBrowser.class);
         intent.putExtras(bundle);
         startActivity(intent);   //now start GameBrowser
+        */
     }
 }

@@ -1,9 +1,14 @@
 <resources>
     <string name="app_name">Spinner</string>
-    
+
     <string name="time_">Select games time frame</string>
     <string name="enter">Enter</string>
     <string name="title">Enter your new games title</string>
+    <string name="enter_e_mail_address">Enter e-mail here!</string>
+    <string name="email">Email:</string>
+    <string name="enter_password_here">Enter password here!</string>
+    <string name="password">Password:</string>
+    <string name="register">Register</string>
 
     <string-array name="Time">
         <item>30</item>
@@ -17,5 +22,5 @@
         <item>110</item>
         <item>120</item>
     </string-array>
-    
+
 </resources>
