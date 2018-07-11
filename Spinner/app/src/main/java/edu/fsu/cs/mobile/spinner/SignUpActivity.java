@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -25,6 +26,7 @@ public class SignUpActivity extends AppCompatActivity {
     private TextView emailTextView;
     private TextView passwordTextView;
     private TextView userNameTextView;
+    private DatabaseReference databaseReference;
 
     private FirebaseAuth firebaseAuth;
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -79,10 +81,10 @@ public class SignUpActivity extends AppCompatActivity {
                                         Toast.LENGTH_LONG).show();
 
                                 //adding username and email to database
-                                DatabaseReference usersRef = ref.child("users");
-                                Map<String, User> users = new HashMap<>();
-                                users.put(username, new User(username, email));
-                                usersRef.setValue(users);
+                                databaseReference = FirebaseDatabase.getInstance().getReference();
+                                FirebaseUser user = firebaseAuth.getCurrentUser();
+                                User newAcct = new User(username,email);
+                                databaseReference.child(user.getUid()).setValue(newAcct);
                             }else{
                                 Toast.makeText(SignUpActivity.this, "Registration Failed",
                                         Toast.LENGTH_LONG).show();
