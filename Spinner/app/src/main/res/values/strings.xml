@@ -6,7 +6,7 @@
     <string name="title">Enter your new games title</string>
     <string name="enter_e_mail_address">example@gmail.com</string>
     <string name="email">Email:</string>
-    <string name="enter_password_here">greater than 5 characters </string>
+    <string name="enter_password_here">greater than 6 characters </string>
     <string name="password">Password:</string>
     <string name="register">Register</string>
     <string name="spinner_logo">Spinner Logo</string>
