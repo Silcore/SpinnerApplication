@@ -6,4 +6,14 @@ This unique social game is meant to bring friends together to enjoy a dizzying c
 ### Development
 #### TODO:
 - [X] Initial Commit (License & README)
-- [ ] Initial Code Commit (Default Android Files)
+- [X] Initial Code Commit (Default Android Files)
+- [ ] Complete Account Registration (through Firebase)
+- [ ] Polish Main Activity
+  - [ ] Attach Activity Intents to Buttons
+- [ ] Create Profile Page (through Firebase)
+- [ ] Create Game Activity
+  - [ ] Compass Direction Detection
+  - [ ] Sound Callouts
+  - [ ] Timer
+- [ ] Show End-Game Scores
+  - [ ] Update Associated Profiles with Scores (through Firebase)
