@@ -12,6 +12,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class SignUpActivity extends AppCompatActivity {
@@ -19,8 +24,11 @@ public class SignUpActivity extends AppCompatActivity {
     private Button registerButton;
     private TextView emailTextView;
     private TextView passwordTextView;
+    private TextView userNameTextView;
 
     private FirebaseAuth firebaseAuth;
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference ref = database.getReference("server/allUsers");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +38,7 @@ public class SignUpActivity extends AppCompatActivity {
         registerButton = findViewById(R.id.signUpRegister);
         emailTextView = findViewById(R.id.signupEmail);
         passwordTextView = findViewById(R.id.signUpPassword);
+        userNameTextView = findViewById(R.id.signUpUserName);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -37,8 +46,9 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Boolean submitFlag = true;
-                String email = emailTextView.getText().toString();
+                final String email = emailTextView.getText().toString();
                 String password = passwordTextView.getText().toString();
+                final String username = userNameTextView.getText().toString();
 
                 if(email.matches("")){
                     emailTextView.setError("Field cannot be blank");
@@ -46,6 +56,11 @@ public class SignUpActivity extends AppCompatActivity {
                 }
                 if(password.matches("")){
                     passwordTextView.setError("Field cannot be blank");
+                    submitFlag = false;
+                }
+
+                if (username.matches("")) {
+                    userNameTextView.setError("Field cannot be blank");
                     submitFlag = false;
                 }
 
@@ -57,6 +72,12 @@ public class SignUpActivity extends AppCompatActivity {
                             if(task.isSuccessful()){
                                 Toast.makeText(SignUpActivity.this, "Success",
                                         Toast.LENGTH_LONG).show();
+
+                                //adding username and email to database
+                                DatabaseReference usersRef = ref.child("users");
+                                Map<String, User> users = new HashMap<>();
+                                users.put(username, new User(username, email));
+                                usersRef.setValue(users);
                             }else{
                                 Toast.makeText(SignUpActivity.this, "Registration Failed",
                                         Toast.LENGTH_LONG).show();
@@ -66,9 +87,21 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }//end onClick
         });
-
-
     }
 
+    public static class User{
+        public String username;
+        public String email;
+        int wins;
+        int losses;
+        int ties;
 
+        public User(String uname, String em) {
+            username = uname;
+            email = em;
+            wins = 0;
+            losses = 0;
+            ties = 0;
+        }
+    }
 }

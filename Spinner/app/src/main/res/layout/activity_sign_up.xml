@@ -53,9 +53,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="162dp"
-        android:layout_toEndOf="@+id/SignupEmailTV"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="124dp"
         android:text="@string/register" />
+
+    <TextView
+        android:id="@+id/signUpUserNameTV"
+        android:layout_width="124dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/signupEmail"
+        android:text="@string/username"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+    <EditText
+        android:id="@+id/signUpUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="@string/enter_username"
+        android:inputType="textPersonName" />
 
 
 </RelativeLayout>
