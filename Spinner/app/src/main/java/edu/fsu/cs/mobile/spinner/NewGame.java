@@ -15,9 +15,6 @@ public class NewGame extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_game);
 
-    }
-
-    public void GoToGameBrowser(View view){
         Spinner myspinner = (Spinner) findViewById(R.id.spinner1);
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(NewGame.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.Time));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -33,6 +30,10 @@ public class NewGame extends AppCompatActivity {
         bundle.putString("string title", str_title);
         bundle.putInt("Time_in_seconds", time_val);
 
+    }
+
+    public void GoToGameBrowser(Bundle bundle){
+        
         /*
         Intent intent = new Intent(this, GameBrowser.class);
         intent.putExtras(bundle);
