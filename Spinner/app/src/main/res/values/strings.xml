@@ -29,5 +29,8 @@
         <item>120</item>
     </string-array>
     <string name="title_activity_profile">ProfileActivity</string>
+    <string name="wins">Wins:</string>
+    <string name="losses">Losses:</string>
+    <string name="ties">Ties:</string>
 
 </resources>

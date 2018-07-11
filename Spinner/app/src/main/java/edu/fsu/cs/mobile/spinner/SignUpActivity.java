@@ -1,5 +1,6 @@
 package edu.fsu.cs.mobile.spinner;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -85,6 +86,9 @@ public class SignUpActivity extends AppCompatActivity {
                                 FirebaseUser user = firebaseAuth.getCurrentUser();
                                 User newAcct = new User(username,email);
                                 databaseReference.child(user.getUid()).setValue(newAcct);
+
+                                Intent myIntent = new Intent(SignUpActivity.this, ProfileActivity.class);
+                                SignUpActivity.this.startActivity(myIntent);
                             }else{
                                 Toast.makeText(SignUpActivity.this, "Registration Failed",
                                         Toast.LENGTH_LONG).show();
