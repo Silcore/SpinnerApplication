@@ -59,6 +59,11 @@ public class SignUpActivity extends AppCompatActivity {
                     submitFlag = false;
                 }
 
+                if(password.length() < 6){
+                    passwordTextView.setError("Field must be longer than 6 characters");
+                    submitFlag = false;
+                }
+
                 if (username.matches("")) {
                     userNameTextView.setError("Field cannot be blank");
                     submitFlag = false;

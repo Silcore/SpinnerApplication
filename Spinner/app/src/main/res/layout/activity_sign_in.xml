@@ -4,31 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUpActivity">
+    tools:context=".SignInActivity">
 
     <EditText
-        android:id="@+id/signupEmail"
+        android:id="@+id/signInEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/signUpPassword"
+        android:layout_alignStart="@+id/signInPassword"
         android:layout_marginTop="88dp"
         android:ems="10"
         android:hint="@string/enter_e_mail_address"
         android:inputType="textPersonName" />
 
     <TextView
-        android:id="@+id/SignupEmailTV"
+        android:id="@+id/SignInEmailTV"
         android:layout_width="97dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/signupEmail"
+        android:layout_alignBottom="@+id/signInEmail"
         android:layout_alignParentStart="true"
         android:layout_marginStart="32dp"
         android:text="@string/email"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
     <EditText
-        android:id="@+id/signUpPassword"
+        android:id="@+id/signInPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -40,16 +40,16 @@
         android:inputType="numberPassword" />
 
     <TextView
-        android:id="@+id/signUpPasswordTV"
+        android:id="@+id/signInPasswordTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/signUpPassword"
-        android:layout_alignEnd="@+id/SignupEmailTV"
+        android:layout_alignBottom="@+id/signInPassword"
+        android:layout_alignEnd="@+id/SignInEmailTV"
         android:text="@string/password"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
     <Button
-        android:id="@+id/signUpRegister"
+        android:id="@+id/signInButton"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:background="@drawable/main_button"
         android:textColor="@android:color/white"
@@ -57,28 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="124dp"
-        android:text="@string/register" />
-
-    <TextView
-        android:id="@+id/signUpUserNameTV"
-        android:layout_width="124dp"
-        android:layout_height="40dp"
-        android:layout_centerVertical="true"
-        android:layout_toStartOf="@+id/signupEmail"
-        android:text="@string/username"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-
-    <EditText
-        android:id="@+id/signUpUserName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:hint="@string/enter_username"
-        android:inputType="textPersonName" />
-
+        android:layout_marginBottom="149dp"
+        android:text="Sign In" />
 
 </RelativeLayout>

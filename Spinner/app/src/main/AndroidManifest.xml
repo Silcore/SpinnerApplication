@@ -18,12 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NewGame">
-
-        </activity>
-        <activity android:name=".SignUpActivity">
-
-        </activity>
+        <activity android:name=".NewGame"></activity>
+        <activity android:name=".SignUpActivity"></activity>
+        <activity android:name=".SignInActivity"></activity>
     </application>
 
 </manifest>
