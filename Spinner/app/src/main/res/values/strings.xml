@@ -28,5 +28,6 @@
         <item>110</item>
         <item>120</item>
     </string-array>
+    <string name="title_activity_profile">ProfileActivity</string>
 
 </resources>
