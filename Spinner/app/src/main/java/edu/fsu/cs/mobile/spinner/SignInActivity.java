@@ -1,5 +1,6 @@
 package edu.fsu.cs.mobile.spinner;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -59,9 +60,10 @@ public class SignInActivity extends AppCompatActivity {
                             if(task.isSuccessful()) {
                                 Toast.makeText(SignInActivity.this,
                                         "Signed in successfully", Toast.LENGTH_LONG).show();
-                                        //Start
-                                        //new
-                                        //activity or intent on successful sign in
+
+                                // Open Main Activity
+                                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                                startActivity(intent);
                             }else{
                                 Toast.makeText(SignInActivity.this,
                                         "Sign in failed", Toast.LENGTH_LONG).show();

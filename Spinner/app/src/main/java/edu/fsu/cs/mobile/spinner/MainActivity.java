@@ -12,10 +12,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        //added this here just to test and see if Firebase signIn was hooked up properly
-        Intent myIntent = new Intent(MainActivity.this, SignInActivity.class);
-        MainActivity.this.startActivity(myIntent);
     }
 }

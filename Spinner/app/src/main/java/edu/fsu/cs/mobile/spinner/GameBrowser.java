@@ -1,4 +1,4 @@
-package com.example.hunter.groupproject;
+package edu.fsu.cs.mobile.spinner;
 
 import android.app.Activity;
 import android.content.Intent;

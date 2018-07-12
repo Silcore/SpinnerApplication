@@ -6,7 +6,7 @@
     <string name="title">Enter your new games title</string>
     <string name="enter_e_mail_address">example@gmail.com</string>
     <string name="email">Email:</string>
-    <string name="enter_password_here">greater than 6 characters </string>
+    <string name="enter_password_here">Password</string>
     <string name="password">Password:</string>
     <string name="register">Register</string>
     <string name="spinner_logo">Spinner Logo</string>
@@ -14,7 +14,7 @@
     <string name="profile">Profile</string>
     <string name="exit">Exit</string>
     <string name="username">Username:</string>
-    <string name="enter_username">Enter Username!</string>
+    <string name="enter_username">Username</string>
 
     <string-array name="Time">
         <item>30</item>
@@ -32,5 +32,6 @@
     <string name="wins">Wins:</string>
     <string name="losses">Losses:</string>
     <string name="ties">Ties:</string>
+    <string name="sign_in">Sign In</string>
 
 </resources>
