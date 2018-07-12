@@ -33,5 +33,9 @@
     <string name="losses">Losses:</string>
     <string name="ties">Ties:</string>
     <string name="sign_in">Sign In</string>
+    <string name="main_menu">Main Menu</string>
+    <string name="new_user">New User</string>
+    <string name="login">Login</string>
+    <string name="browse_games">Browse Games</string>
 
 </resources>
