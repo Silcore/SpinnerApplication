@@ -32,7 +32,7 @@ public class GameBrowser extends Activity {
         String title_and_time = title_data + "                               " + str_time + " seconds";
 
         // Create and populate the list of created games.
-        String[] list = new String[] {title_data};
+        String[] list = new String[] {title_and_time};
         ArrayList<String> List = new ArrayList<String>();
         List.addAll( Arrays.asList(list) );
 
