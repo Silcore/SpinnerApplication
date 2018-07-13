@@ -23,6 +23,7 @@ public class ProfileActivity extends Activity {
     private TextView winsTextView;
     private TextView lossesTextView;
     private TextView tiesTextView;
+    private TextView highscoreTextView;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
@@ -38,6 +39,7 @@ public class ProfileActivity extends Activity {
         winsTextView = findViewById(R.id.profileInsertWins);
         lossesTextView = findViewById(R.id.profileInsertLosses);
         tiesTextView = findViewById(R.id.profileInsertTies);
+        highscoreTextView = findViewById(R.id.profileInsertHighscore);
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser myUser = firebaseAuth.getCurrentUser();
@@ -54,12 +56,14 @@ public class ProfileActivity extends Activity {
                 Log.v(TAG, user.username);
                 Log.v(TAG, Integer.toString(user.wins));
                 Log.v(TAG, Integer.toString(user.losses));
-                Log.v(TAG,Integer.toString(user.ties));
+                Log.v(TAG, Integer.toString(user.ties));
+                Log.v(TAG, Integer.toString(user.highscore));
 
                 usernameTextView.setText(user.username);
                 winsTextView.setText(Integer.toString(user.wins));
                 lossesTextView.setText(Integer.toString(user.losses));
                 tiesTextView.setText(Integer.toString(user.ties));
+                highscoreTextView.setText(Integer.toString(user.highscore));
             }
 
             @Override
@@ -76,17 +80,19 @@ public class ProfileActivity extends Activity {
         int wins;
         int losses;
         int ties;
+        int highscore;
 
         User() {
 
         }
 
-        public User(String uname, String em, int win, int loss, int tie) {
+        public User(String uname, String em, int win, int loss, int tie, int hs) {
             username = uname;
             email = em;
             wins = win;
             losses = loss;
             ties = tie;
+            highscore = hs;
         }
     }
 
@@ -94,5 +100,4 @@ public class ProfileActivity extends Activity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
 }

@@ -37,5 +37,6 @@
     <string name="new_user">New User</string>
     <string name="login">Login</string>
     <string name="browse_games">Browse Games</string>
+    <string name="highscore">Highscore:</string>
 
 </resources>

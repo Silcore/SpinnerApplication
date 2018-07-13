@@ -64,6 +64,21 @@
         app:layout_constraintTop_toBottomOf="@+id/profileTiesTV" />
 
     <TextView
+        android:id="@+id/profileHighscoreTV"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/highscore"
+        android:gravity="end"
+        android:text="@string/highscore"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileLossesTV" />
+
+
+    <TextView
         android:id="@+id/profileTiesTV"
         android:layout_width="150dp"
         android:layout_height="50dp"
@@ -98,6 +113,17 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         app:layout_constraintStart_toEndOf="@+id/profileLossesTV"
         app:layout_constraintTop_toBottomOf="@+id/profileInsertTies" />
+
+    <TextView
+        android:id="@+id/profileInsertHighscore"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        app:layout_constraintStart_toEndOf="@+id/profileHighscoreTV"
+        app:layout_constraintTop_toBottomOf="@+id/profileLossesTV" />
 
     <TextView
         android:id="@+id/profileInsertTies"
