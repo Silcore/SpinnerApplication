@@ -28,7 +28,8 @@ public class GameBrowser extends Activity {
         Intent i = getIntent();
         String title_data = i.getExtras().getString("string title","");
         Integer _time_ = i.getExtras().getInt("Time_in_seconds");
-        //String time__ = parsetoInt(_time_);
+        String str_time = _time_.toString();
+        String title_and_time = title_data + "                               " + str_time + " seconds";
 
         // Create and populate the list of created games.
         String[] list = new String[] {title_data};
