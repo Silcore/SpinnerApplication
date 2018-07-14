@@ -16,20 +16,15 @@ public class NewGame extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_game);
 
-        final Spinner myspinner = (Spinner) findViewById(R.id.spinner1);
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(NewGame.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.Time));
-        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        myspinner.setAdapter(myAdapter);
+        final Spinner mySpinner = findViewById(R.id.newGame_sTime);
 
-
-
-        Button button_submit = (Button) findViewById(R.id.submit);
+        Button button_submit = findViewById(R.id.newGame_bStart);
         button_submit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String spin = myspinner.getSelectedItem().toString();
+                String spin = mySpinner.getSelectedItem().toString();
                 Integer time_val = Integer.parseInt(spin);     //getting the time in integer from the spinner
 
-                EditText the_title = (EditText) findViewById(R.id.title);
+                EditText the_title = findViewById(R.id.newGame_eGameTitle);
                 String str_title = the_title.getText().toString();
 
                 Bundle bundle = new Bundle();
