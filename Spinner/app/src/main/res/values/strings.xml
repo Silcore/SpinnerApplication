@@ -16,6 +16,14 @@
     <string name="username">Username:</string>
     <string name="enter_username">Username</string>
 
+    <string name="north">NORTH!</string>
+    <string name="south">SOUTH!</string>
+    <string name="east">EAST!</string>
+    <string name="west">WEST!</string>
+    <string name="ready">Ready?</string>
+    <string name="start">Start</string>
+    <string name="game_over">Game Over!</string>
+
     <string-array name="Time">
         <item>30</item>
         <item>40</item>
