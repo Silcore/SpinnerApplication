@@ -11,10 +11,10 @@ This unique social game is meant to bring friends together to enjoy a dizzying c
 - [X] Polish Main Activity
   - [X] Attach Activity Intents to Buttons
 - [X] Create Profile Page (through Firebase)
-- [ ] Create Game Activity
-  - [ ] Compass Direction Detection
-  - [ ] Sound Callouts
-  - [ ] Timer
+- [X] Create Game Activity
+  - [X] Compass Direction Detection
+  - [X] Sound Callouts
+  - [X] Timer
 - [ ] Show End-Game Scores
   - [ ] Update Associated Profiles with Scores (through Firebase)
 
