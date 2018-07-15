@@ -69,7 +69,9 @@ public class Game extends AppCompatActivity implements SensorEventListener {
     protected void onPause(){
         super.onPause();
         // if user leaves screen end current game
-        timer.onFinish();
+        if(timer != null)
+            timer.onFinish();
+        
         currGame.endGame();
         mSensorManager.unregisterListener(this);
     }
