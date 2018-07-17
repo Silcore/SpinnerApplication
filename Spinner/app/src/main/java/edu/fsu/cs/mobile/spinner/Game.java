@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,15 @@ import java.util.Random;
 import android.hardware.SensorManager;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Game extends AppCompatActivity implements SensorEventListener {
 
@@ -20,6 +30,10 @@ public class Game extends AppCompatActivity implements SensorEventListener {
     TextView mTimer;
     TextView mScore;
     TextView mDirection;
+
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference databaseReference;
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     private static final int NORTH = 1;
     private static final int EAST = 2;
@@ -187,6 +201,61 @@ public class Game extends AppCompatActivity implements SensorEventListener {
 
         private void endGame(){
             GameOver = true;
+            firebaseAuth = FirebaseAuth.getInstance();
+            final FirebaseUser myUser = firebaseAuth.getCurrentUser();
+            databaseReference = database.getReference().child(myUser.getUid());
+
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String TAG = "In Game Activity";
+                    ProfileActivity.User user = dataSnapshot.getValue(ProfileActivity.User.class);
+                    Log.v(TAG, user.email);
+                    Log.v(TAG, user.username);
+                    Log.v(TAG, "Wins = " + Integer.toString(user.wins));
+                    Log.v(TAG, "Losses = " + Integer.toString(user.losses));
+                    Log.v(TAG, "Ties = " + Integer.toString(user.ties));
+                    Log.v(TAG, "Highscore = " + Integer.toString(user.highscore));
+
+                    if(getNumberMatches() > user.highscore){
+                        Log.v(TAG, "testNumMatches > user.highscore");
+                        database.getReference().child(myUser.getUid()).child("highscore").setValue(getNumberMatches());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Game.this,
+                            "Read data failed", Toast.LENGTH_LONG).show();;
+                }
+            });
+
+            Intent intent = new Intent(Game.this, MainActivity.class);
+            startActivity(intent);
+        }
+
+
+    }
+
+    public static class User{
+        public String username;
+        public String email;
+        int wins;
+        int losses;
+        int ties;
+        int highscore;
+
+        User() {
+
+        }
+
+        public User(String uname, String em, int win, int loss, int tie, int hs) {
+            username = uname;
+            email = em;
+            wins = win;
+            losses = loss;
+            ties = tie;
+            highscore = hs;
         }
     }
 }
