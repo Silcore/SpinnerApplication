@@ -114,7 +114,7 @@ public class SignUpActivity extends AppCompatActivity {
         int wins;
         int losses;
         int ties;
-        int highScore;
+        int highscore;
 
         public User(String uname, String em) {
             username = uname;
@@ -122,7 +122,7 @@ public class SignUpActivity extends AppCompatActivity {
             wins = 0;
             losses = 0;
             ties = 0;
-            highScore = 0;
+            highscore = 0;
         }
     }
 

@@ -216,7 +216,7 @@ public class Game extends AppCompatActivity implements SensorEventListener {
                     Log.v(TAG, "Losses = " + Integer.toString(user.losses));
                     Log.v(TAG, "Ties = " + Integer.toString(user.ties));
                     Log.v(TAG, "Highscore = " + Integer.toString(user.highscore));
-
+                    
                     if(getNumberMatches() > user.highscore){
                         Log.v(TAG, "testNumMatches > user.highscore");
                         database.getReference().child(myUser.getUid()).child("highscore").setValue(getNumberMatches());
