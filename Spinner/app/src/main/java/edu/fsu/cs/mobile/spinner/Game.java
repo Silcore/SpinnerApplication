@@ -209,6 +209,7 @@ public class Game extends AppCompatActivity implements SensorEventListener {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String TAG = "In Game Activity";
+                    //uses the User class made in ProfileActivity to get data
                     ProfileActivity.User user = dataSnapshot.getValue(ProfileActivity.User.class);
                     Log.v(TAG, user.email);
                     Log.v(TAG, user.username);
@@ -216,9 +217,9 @@ public class Game extends AppCompatActivity implements SensorEventListener {
                     Log.v(TAG, "Losses = " + Integer.toString(user.losses));
                     Log.v(TAG, "Ties = " + Integer.toString(user.ties));
                     Log.v(TAG, "Highscore = " + Integer.toString(user.highscore));
-                    
+
                     if(getNumberMatches() > user.highscore){
-                        Log.v(TAG, "testNumMatches > user.highscore");
+                        Log.v(TAG, "getnumberMatches > user.highscore");
                         database.getReference().child(myUser.getUid()).child("highscore").setValue(getNumberMatches());
                     }
                 }
@@ -232,30 +233,6 @@ public class Game extends AppCompatActivity implements SensorEventListener {
 
             Intent intent = new Intent(Game.this, MainActivity.class);
             startActivity(intent);
-        }
-
-
-    }
-
-    public static class User{
-        public String username;
-        public String email;
-        int wins;
-        int losses;
-        int ties;
-        int highscore;
-
-        User() {
-
-        }
-
-        public User(String uname, String em, int win, int loss, int tie, int hs) {
-            username = uname;
-            email = em;
-            wins = win;
-            losses = loss;
-            ties = tie;
-            highscore = hs;
         }
     }
 }
