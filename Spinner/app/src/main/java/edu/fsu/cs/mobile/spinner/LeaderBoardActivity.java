@@ -22,12 +22,10 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class LeaderBoardActivity extends AppCompatActivity {
-    private ArrayList<String> usernameList = new ArrayList<>();
-    private ArrayList<String> scoreList = new ArrayList<>();
-
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private DatabaseReference databaseReference;
@@ -38,9 +36,12 @@ public class LeaderBoardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
 
-        databaseReference = database.getReference("spinner-494f4");
+        databaseReference = database.getReference();
         Query q = databaseReference.orderByChild("highscore").limitToFirst(10);
         q.addValueEventListener(new ValueEventListener() {
+            private ArrayList<String> usernameList = new ArrayList<>();
+            private ArrayList<String> scoreList = new ArrayList<>();
+
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot data : dataSnapshot.getChildren()){
@@ -50,9 +51,17 @@ public class LeaderBoardActivity extends AppCompatActivity {
 
                     Log.i(TAG, username);
                     Log.i(TAG, highscore);
-                    usernameList.add(username);
-                    scoreList.add(highscore);
+
+                    // Ignore New Accounts
+                    if(Integer.valueOf(highscore) != 0) {
+                        usernameList.add(username);
+                        scoreList.add(highscore);
+                    }
                 }
+
+                // Reverse to Descending Order
+                Collections.reverse(usernameList);
+                Collections.reverse(scoreList);
 
                 ArrayAdapter<String> usernameAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, usernameList);
                 ArrayAdapter<String> scoreAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, scoreList);
