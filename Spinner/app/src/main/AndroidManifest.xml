@@ -22,15 +22,18 @@
         </activity>
 
         <!-- Game Activities -->
+        <activity android:name=".Game" />
         <activity android:name=".NewGame" />
         <activity android:name=".GameBrowser" />
 
         <!-- Login/Register Activities -->
         <activity android:name=".MainActivity" />
-        <activity android:name=".ProfileActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".SignInActivity" />
-        <activity android:name=".Game"></activity>
+
+        <!-- Social Activities -->
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".LeaderBoardActivity" />
     </application>
 
 </manifest>

@@ -4,117 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".LeaderBoardActivity">
+    tools:context=".LeaderBoardActivity"
+    android:baselineAligned="false">
 
 
-    <TextView
-        android:id="@+id/user1"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        app:layout_constraintStart_toEndOf="@+id/profileUsernameTV"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ListView
+        android:id="@+id/leaderboard_userView"
+        android:layout_width="0dp"
+        android:layout_height="450dp"
+        android:layout_weight="0.5">
 
-    <TextView
-        android:id="@+id/user2"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        app:layout_constraintStart_toEndOf="@+id/profileUsernameTV"
-        app:layout_constraintTop_toTopOf="parent" />
+    </ListView>
 
-    <TextView
-        android:id="@+id/user3"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        app:layout_constraintStart_toEndOf="@+id/profileUsernameTV"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ListView
+        android:id="@+id/leaderboard_scoreView"
+        android:layout_width="0dp"
+        android:layout_height="450dp"
+        android:layout_weight="0.5" />
 
-    <TextView
-        android:id="@+id/user4"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        app:layout_constraintStart_toEndOf="@+id/profileUsernameTV"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/user5"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        app:layout_constraintStart_toEndOf="@+id/profileUsernameTV"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/user6"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        app:layout_constraintStart_toEndOf="@+id/profileUsernameTV"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/user7"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        app:layout_constraintStart_toEndOf="@+id/profileUsernameTV"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/user8"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        app:layout_constraintStart_toEndOf="@+id/profileUsernameTV"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/user9"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        app:layout_constraintStart_toEndOf="@+id/profileUsernameTV"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/user10"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        app:layout_constraintStart_toEndOf="@+id/profileUsernameTV"
-        app:layout_constraintTop_toTopOf="parent" />
 </LinearLayout>

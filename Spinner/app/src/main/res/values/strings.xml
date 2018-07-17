@@ -43,5 +43,6 @@
     <string name="time_">Duration:</string>
     <string name="start_game">Start Game</string>
     <string name="title_example">\"My New Game\"</string>
+    <string name="scores">High Scores</string>
 
 </resources>
