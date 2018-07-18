@@ -254,9 +254,9 @@ public class Game extends AppCompatActivity implements SensorEventListener {
 
                                         if(snapshot.child("opponent").getValue().toString().equals(uname)){
                                             //gets opponent you were playing
-                                            while(snapshot.child("gameFlag").equals("true")){
-                                                //wait untill opponent is finished
-                                            }
+                                           // while(snapshot.child("gameFlag").equals("true")){
+                                            //    //wait untill opponent is finished
+                                            //}
 
                                             if(getNumberMatches() > Integer.parseInt(snapshot.child("currentGameScore").getValue().toString())){
                                                 myWins += 1;
