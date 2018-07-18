@@ -34,6 +34,7 @@ public class Game extends AppCompatActivity implements SensorEventListener {
     int myWins;
     int myLoss;
     int myTie;
+    Boolean endGameFlag = false;
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
@@ -229,6 +230,7 @@ public class Game extends AppCompatActivity implements SensorEventListener {
 
                     uname = user.username;
 
+
                     if(getNumberMatches() > user.highscore){
                         Log.v(TAG, "getnumberMatches > user.highscore");
                         database.getReference().child(myUser.getUid()).child("highscore").setValue(getNumberMatches());
@@ -242,42 +244,51 @@ public class Game extends AppCompatActivity implements SensorEventListener {
                         database.getReference().addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                                    //go through all users, and if their gameflag is true
-                                    String tempUname = snapshot.child("username").getValue().toString();
+                                while(endGameFlag == false){
+                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                        //go through all users, and if their gameflag is true
+                                        String tempUname = snapshot.child("username").getValue().toString();
 
-                                    Log.v("in gameBrowser", "snapshot is=" + snapshot);
+                                        Log.v("in gameBrowser", "snapshot is=" + snapshot);
 
-                                    if(!tempUname.equals(uname)){
-                                        //if the flag is up and its not you
-                                        Log.v("in game, waiting", "waiting");
+                                        if (!tempUname.equals(uname)) {
+                                            //if the flag is up and its not you
+                                            Log.v("in game, waiting", "waiting");
 
-                                        if(snapshot.child("opponent").getValue().toString().equals(uname)){
-                                            //gets opponent you were playing
-                                            while(snapshot.child("gameFlag").equals("true")){
-                                                //wait untill opponent is finished
+                                            if (snapshot.child("opponent").getValue().toString().equals(uname)) {
+                                                //gets opponent you were playing
+                                                if(snapshot.child("gameFlag").equals("false")) {
+                                                    //wait untill opponent is finished flag
+                                                    endGameFlag = true;
+                                                }
+
+
+                                                if (getNumberMatches() > Integer.parseInt(snapshot.child("currentGameScore").getValue().toString())) {
+                                                    myWins += 1;
+                                                    database.getReference().child(myUser.getUid()).child("wins").setValue(myWins);
+                                                    database.getReference().child(myUser.getUid()).child("currentGameScore").setValue(0);
+                                                    database.getReference().child(myUser.getUid()).child("opponent").setValue("");
+                                                    Toast.makeText(Game.this, "YOU WON!", Toast.LENGTH_LONG).show();
+                                                    Intent intent = new Intent(Game.this, MainActivity.class);
+                                                    startActivity(intent);
+                                                } else if (getNumberMatches() == Integer.parseInt(snapshot.child("currentGameScore").getValue().toString())) {
+                                                    myTie += 1;
+                                                    database.getReference().child(myUser.getUid()).child("ties").setValue(myTie);
+                                                    database.getReference().child(myUser.getUid()).child("currentGameScore").setValue(0);
+                                                    database.getReference().child(myUser.getUid()).child("opponent").setValue("");
+                                                    Toast.makeText(Game.this, "YOU TIED!", Toast.LENGTH_LONG).show();
+                                                    Intent intent = new Intent(Game.this, MainActivity.class);
+                                                    startActivity(intent);
+                                                } else if (getNumberMatches() < Integer.parseInt(snapshot.child("currentGameScore").getValue().toString())) {
+                                                    myLoss += 1;
+                                                    database.getReference().child(myUser.getUid()).child("losses").setValue(myLoss);
+                                                    database.getReference().child(myUser.getUid()).child("currentGameScore").setValue(0);
+                                                    database.getReference().child(myUser.getUid()).child("opponent").setValue("");
+                                                    Toast.makeText(Game.this, "YOU LOST!", Toast.LENGTH_LONG).show();
+                                                    Intent intent = new Intent(Game.this, MainActivity.class);
+                                                    startActivity(intent);
+                                                }
                                             }
-
-                                            if(getNumberMatches() > Integer.parseInt(snapshot.child("currentGameScore").getValue().toString())){
-                                                myWins += 1;
-                                                database.getReference().child(myUser.getUid()).child("wins").setValue(myWins);
-                                                database.getReference().child(myUser.getUid()).child("currentGameScore").setValue(0);
-                                                Toast.makeText(Game.this, "YOU WON!", Toast.LENGTH_LONG).show();
-                                            }else if(getNumberMatches() == Integer.parseInt(snapshot.child("currentGameScore").getValue().toString())){
-                                                myTie += 1;
-                                                database.getReference().child(myUser.getUid()).child("ties").setValue(myTie);
-                                                database.getReference().child(myUser.getUid()).child("currentGameScore").setValue(0);
-                                                Toast.makeText(Game.this, "YOU TIED!", Toast.LENGTH_LONG).show();
-                                            }else if(getNumberMatches() < Integer.parseInt(snapshot.child("currentGameScore").getValue().toString())){
-                                                myLoss += 1;
-                                                database.getReference().child(myUser.getUid()).child("losses").setValue(myLoss);
-                                                database.getReference().child(myUser.getUid()).child("currentGameScore").setValue(0);
-                                                Toast.makeText(Game.this, "YOU LOST!", Toast.LENGTH_LONG).show();
-                                            }
-
-                                            database.getReference().child(myUser.getUid()).child("opponent").setValue("");
-                                            Intent intent = new Intent(Game.this, MainActivity.class);
-                                            startActivity(intent);
                                         }
                                     }
                                 }
