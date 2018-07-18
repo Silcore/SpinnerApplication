@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">Spinner</string>
 
-    <string name="enter">Enter</string>
-    <string name="title">Enter your new games title</string>
     <string name="enter_e_mail_address">example@gmail.com</string>
     <string name="email">Email:</string>
     <string name="enter_password_here">Password</string>
@@ -11,7 +9,6 @@
     <string name="spinner_logo">Spinner Logo</string>
     <string name="new_game">New Game</string>
     <string name="profile">Profile</string>
-    <string name="exit">Exit</string>
     <string name="username">Username:</string>
     <string name="enter_username">Username</string>
 
@@ -29,13 +26,11 @@
         <item>90</item>
         <item>120</item>
     </string-array>
-    <string name="title_activity_profile">ProfileActivity</string>
     <string name="wins">Wins:</string>
     <string name="losses">Losses:</string>
     <string name="ties">Ties:</string>
     <string name="sign_in">Sign In</string>
     <string name="main_menu">Main Menu</string>
-    <string name="new_user">New User</string>
     <string name="login">Login</string>
     <string name="browse_games">Browse Games</string>
     <string name="highscore">Highscore:</string>
@@ -44,7 +39,6 @@
     <string name="start_game">Start Game</string>
     <string name="title_example">\"My New Game\"</string>
     <string name="scores">High Scores</string>
-    <string name="in_lobby_searching_for_game_please_wait">In Lobby: Searching For Game, Please Wait...</string>
     <string name="in_lobby_please_wait">In lobby, please wait...</string>
 
 </resources>
