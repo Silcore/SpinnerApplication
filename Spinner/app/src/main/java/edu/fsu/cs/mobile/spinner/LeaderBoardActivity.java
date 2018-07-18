@@ -45,17 +45,22 @@ public class LeaderBoardActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot data : dataSnapshot.getChildren()){
-                    String username = data.child("username").getValue().toString();
-                    String highscore = data.child("highscore").getValue().toString();
+                    String username;
+                    String highscore;
                     String TAG = "MyActivity";
 
-                    Log.i(TAG, username);
-                    Log.i(TAG, highscore);
+                    // Ignore Null Accounts
+                    if(data.child("username").getValue() != null && data.child("highscore").getValue() != null) {
+                        username = data.child("username").getValue().toString();
+                        highscore = data.child("highscore").getValue().toString();
+                        Log.i(TAG, username);
+                        Log.i(TAG, highscore);
 
-                    // Ignore New Accounts
-                    if(Integer.valueOf(highscore) != 0) {
-                        usernameList.add(username);
-                        scoreList.add(highscore);
+                        // Ignore New Accounts
+                        if (Integer.valueOf(highscore) != 0) {
+                            usernameList.add(username);
+                            scoreList.add(highscore);
+                        }
                     }
                 }
 
