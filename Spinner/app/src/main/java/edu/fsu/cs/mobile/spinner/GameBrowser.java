@@ -89,7 +89,16 @@ public class GameBrowser extends Activity {
                         if(snapshot.child("username").getValue().toString().equals(tempUname)){
                             //gets opponent username and sets his opponent to you
                             database.getReference().child(snapshot.getKey()).child("opponent").setValue(uname);
+
+                            Bundle bundle = new Bundle();
+                            String str_title = "Head to head";
+                            Integer time_val = 30;
+
+                            bundle.putString("string title", str_title);
+                            bundle.putInt("Time_in_seconds", time_val);
+
                             Intent intent = new Intent(GameBrowser.this, Game.class);
+                            intent.putExtras(bundle);
                             startActivity(intent);
                         }
                     }
@@ -103,6 +112,5 @@ public class GameBrowser extends Activity {
         });
 
     }
-
 
 }
