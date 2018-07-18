@@ -236,15 +236,15 @@ public class Game extends AppCompatActivity implements SensorEventListener {
                         database.getReference().child(myUser.getUid()).child("highscore").setValue(getNumberMatches());
                     }
 
-                    if(user.gameFlag.equals("true")){
+                    if(user.gameFlag.equals("true")) {
                         Log.v(TAG, "gameFlag on, turning gameFlag off");
                         database.getReference().child(myUser.getUid()).child("currentGameScore").setValue(getNumberMatches());
                         database.getReference().child(myUser.getUid()).child("gameFlag").setValue("false");
 
-                        database.getReference().addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                while(endGameFlag == false){
+                        while (endGameFlag == false) {
+                            database.getReference().addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                         //go through all users, and if their gameflag is true
                                         String tempUname = snapshot.child("username").getValue().toString();
@@ -257,13 +257,14 @@ public class Game extends AppCompatActivity implements SensorEventListener {
 
                                             if (snapshot.child("opponent").getValue().toString().equals(uname)) {
                                                 //gets opponent you were playing
-                                                if(snapshot.child("gameFlag").equals("false")) {
+                                                if (snapshot.child("gameFlag").equals("false")) {
                                                     //wait untill opponent is finished flag
                                                     endGameFlag = true;
                                                 }
 
 
-                                                if (getNumberMatches() > Integer.parseInt(snapshot.child("currentGameScore").getValue().toString())) {
+                                                if ((getNumberMatches() > Integer.parseInt(snapshot.child("currentGameScore").getValue().toString()))
+                                                        && (endGameFlag == true)) {
                                                     myWins += 1;
                                                     database.getReference().child(myUser.getUid()).child("wins").setValue(myWins);
                                                     database.getReference().child(myUser.getUid()).child("currentGameScore").setValue(0);
@@ -271,7 +272,8 @@ public class Game extends AppCompatActivity implements SensorEventListener {
                                                     Toast.makeText(Game.this, "YOU WON!", Toast.LENGTH_LONG).show();
                                                     Intent intent = new Intent(Game.this, MainActivity.class);
                                                     startActivity(intent);
-                                                } else if (getNumberMatches() == Integer.parseInt(snapshot.child("currentGameScore").getValue().toString())) {
+                                                } else if ((getNumberMatches() == Integer.parseInt(snapshot.child("currentGameScore").getValue().toString()))
+                                                        && (endGameFlag == true)) {
                                                     myTie += 1;
                                                     database.getReference().child(myUser.getUid()).child("ties").setValue(myTie);
                                                     database.getReference().child(myUser.getUid()).child("currentGameScore").setValue(0);
@@ -279,7 +281,8 @@ public class Game extends AppCompatActivity implements SensorEventListener {
                                                     Toast.makeText(Game.this, "YOU TIED!", Toast.LENGTH_LONG).show();
                                                     Intent intent = new Intent(Game.this, MainActivity.class);
                                                     startActivity(intent);
-                                                } else if (getNumberMatches() < Integer.parseInt(snapshot.child("currentGameScore").getValue().toString())) {
+                                                } else if (getNumberMatches() < Integer.parseInt(snapshot.child("currentGameScore").getValue().toString())
+                                                        && (endGameFlag == true)) {
                                                     myLoss += 1;
                                                     database.getReference().child(myUser.getUid()).child("losses").setValue(myLoss);
                                                     database.getReference().child(myUser.getUid()).child("currentGameScore").setValue(0);
@@ -292,14 +295,14 @@ public class Game extends AppCompatActivity implements SensorEventListener {
                                         }
                                     }
                                 }
-                            }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                            }
-                        });
-                        //end if gameFlag == true
+                                }
+                            });
+                            //end if gameFlag == true
+                        }
                     }
                 }
 
