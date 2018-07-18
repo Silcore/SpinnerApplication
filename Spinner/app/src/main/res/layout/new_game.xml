@@ -26,12 +26,15 @@
         android:id="@+id/newGame_eGameTitle"
         android:layout_width="200dp"
         android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="50dp"
         android:ems="10"
         android:hint="@string/title_example"
         android:inputType="textCapWords"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/newGame_tGameTitle"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,10 +56,13 @@
         android:id="@+id/newGame_sTime"
         android:layout_width="200dp"
         android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         android:entries="@array/Time"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/newGame_tTime"
         app:layout_constraintTop_toBottomOf="@+id/newGame_eGameTitle" />
 
