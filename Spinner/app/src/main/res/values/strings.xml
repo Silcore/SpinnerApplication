@@ -44,5 +44,7 @@
     <string name="start_game">Start Game</string>
     <string name="title_example">\"My New Game\"</string>
     <string name="scores">High Scores</string>
+    <string name="in_lobby_searching_for_game_please_wait">In Lobby: Searching For Game, Please Wait...</string>
+    <string name="in_lobby_please_wait">In lobby, please wait...</string>
 
 </resources>

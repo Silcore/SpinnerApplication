@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
@@ -8,10 +8,16 @@ tools:layout_editor_absoluteY="81dp"
 tools:context=".GameBrowser"
 tools:showIn="@layout/game_browser">
 
+    <TextView
+        android:id="@+id/gameBrowserTV"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:gravity="end"
+        android:text="@string/in_lobby_please_wait"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        />
 
-    <ListView
-        android:id="@+id/mobile_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
-</LinearLayout>
+</RelativeLayout>

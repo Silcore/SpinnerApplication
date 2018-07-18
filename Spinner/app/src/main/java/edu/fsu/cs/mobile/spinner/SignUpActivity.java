@@ -115,6 +115,9 @@ public class SignUpActivity extends AppCompatActivity {
         int losses;
         int ties;
         int highscore;
+        int currentGameScore;
+        String gameFlag;
+        String opponent;
 
         public User(String uname, String em) {
             username = uname;
@@ -123,6 +126,9 @@ public class SignUpActivity extends AppCompatActivity {
             losses = 0;
             ties = 0;
             highscore = 0;
+            gameFlag = "false";
+            currentGameScore = 0;
+            opponent = "";
         }
     }
 

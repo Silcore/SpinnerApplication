@@ -81,18 +81,24 @@ public class ProfileActivity extends Activity {
         int losses;
         int ties;
         int highscore;
+        String gameFlag;
+        String opponent;
+        int currentGameScore;
 
         User() {
 
         }
 
-        public User(String uname, String em, int win, int loss, int tie, int hs) {
+        public User(String uname, String em, int win, int loss, int tie, int hs, String gf, String op, int cgs) {
             username = uname;
             email = em;
             wins = win;
             losses = loss;
             ties = tie;
             highscore = hs;
+            gameFlag = gf;
+            opponent = op;
+            currentGameScore = cgs;
         }
     }
 
