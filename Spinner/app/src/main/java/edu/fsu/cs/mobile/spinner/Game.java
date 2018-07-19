@@ -233,7 +233,7 @@ public class Game extends AppCompatActivity implements SensorEventListener {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             final ProfileActivity.User opponent = dataSnapshot.getValue(ProfileActivity.User.class);
 
-                            if(opponent.gameOver == "true" && user.gameOver == "true") {
+                            if(opponent.gameOver.equals("true") && user.gameOver.equals("true")) {
                                 // Win Status Checking
                                 if (user.currentGameScore > opponent.currentGameScore) {
                                     Toast.makeText(Game.this, "You beat " + user.opponent + " by " +
