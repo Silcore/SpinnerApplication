@@ -83,6 +83,7 @@ public class ProfileActivity extends AppCompatActivity {
         int ties;
         int highscore;
         String gameFlag;
+        String gameOver;
         String opponent;
         int currentGameScore;
 
@@ -100,6 +101,7 @@ public class ProfileActivity extends AppCompatActivity {
             gameFlag = gf;
             opponent = op;
             currentGameScore = cgs;
+            gameOver = "false";
         }
     }
 

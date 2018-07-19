@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ public class Game extends AppCompatActivity implements SensorEventListener {
     TextView mScore;
     TextView mDirection;
     String uname;
+    String opponentKey;
     int myWins;
     int myLoss;
     int myTie;
@@ -59,7 +61,12 @@ public class Game extends AppCompatActivity implements SensorEventListener {
         Intent i = getIntent();
 
         // set Timer to time from intent
-        TIMER_TIME = ( i.getExtras().getInt("Time_in_seconds") * MILLISECS_TO_SEC );
+        if(i.getExtras() != null) {
+            TIMER_TIME = (i.getExtras().getInt("Time_in_seconds") * MILLISECS_TO_SEC);
+
+            if(i.getExtras().getString("opponentKey") != null)
+                opponentKey = i.getExtras().getString("opponentKey");
+        }
 
         mStart = (Button) findViewById(R.id.start_button);
         mTimer = (TextView) findViewById(R.id.timer_textView);
@@ -89,7 +96,7 @@ public class Game extends AppCompatActivity implements SensorEventListener {
         // if user leaves screen end current game
         if(timer != null)
             timer.onFinish();
-        
+
         currGame.endGame();
         mSensorManager.unregisterListener(this);
     }
@@ -208,96 +215,68 @@ public class Game extends AppCompatActivity implements SensorEventListener {
             firebaseAuth = FirebaseAuth.getInstance();
             final FirebaseUser myUser = firebaseAuth.getCurrentUser();
             databaseReference = database.getReference().child(myUser.getUid());
-
-            databaseReference.addValueEventListener(new ValueEventListener() {
+            ValueEventListener listener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String TAG = "In Game Activity";
-                    //uses the User class made in ProfileActivity to get data
-                    ProfileActivity.User user = dataSnapshot.getValue(ProfileActivity.User.class);
-                    Log.v(TAG, user.email);
-                    Log.v(TAG, user.username);
-                    Log.v(TAG, "Wins = " + Integer.toString(user.wins));
-                    Log.v(TAG, "Losses = " + Integer.toString(user.losses));
-                    Log.v(TAG, "Ties = " + Integer.toString(user.ties));
-                    Log.v(TAG, "Highscore = " + Integer.toString(user.highscore));
-                    Log.v(TAG, "gameFlag = " + user.gameFlag);
+                    final ProfileActivity.User user = dataSnapshot.child(myUser.getUid()).getValue(ProfileActivity.User.class);
+                    final DatabaseReference opponentReference = database.getReference().child(opponentKey);
 
-                    myWins = user.wins;
-                    myLoss = user.losses;
-                    myTie = user.ties;
+                    // Check if current score is higher than saved high score, if so update
+                    if(user.highscore < getNumberMatches())
+                        databaseReference.child("highscore").setValue(getNumberMatches());
 
-                    uname = user.username;
+                    // Update current score
+                    databaseReference.child("currentGameScore").setValue(getNumberMatches());
 
-                    if(getNumberMatches() > user.highscore){
-                        Log.v(TAG, "getnumberMatches > user.highscore");
-                        database.getReference().child(myUser.getUid()).child("highscore").setValue(getNumberMatches());
-                    }
+                    final ValueEventListener opponentListener = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            final ProfileActivity.User opponent = dataSnapshot.getValue(ProfileActivity.User.class);
 
-                    if(user.gameFlag.equals("true")){
-                        Log.v(TAG, "gameFlag on, turning gameFlag off");
-                        database.getReference().child(myUser.getUid()).child("currentGameScore").setValue(getNumberMatches());
-                        database.getReference().child(myUser.getUid()).child("gameFlag").setValue("false");
-
-                        database.getReference().addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                                    //go through all users, and if their gameflag is true
-                                    String tempUname = snapshot.child("username").getValue().toString();
-
-                                    Log.v("in gameBrowser", "snapshot is=" + snapshot);
-
-                                    if(!tempUname.equals(uname)){
-                                        //if the flag is up and its not you
-                                        Log.v("in game, waiting", "waiting");
-
-                                        if(snapshot.child("opponent").getValue().toString().equals(uname)){
-                                            //gets opponent you were playing
-                                           // while(snapshot.child("gameFlag").equals("true")){
-                                            //    //wait untill opponent is finished
-                                            //}
-
-                                            if(getNumberMatches() > Integer.parseInt(snapshot.child("currentGameScore").getValue().toString())){
-                                                myWins += 1;
-                                                database.getReference().child(myUser.getUid()).child("wins").setValue(myWins);
-                                                database.getReference().child(myUser.getUid()).child("currentGameScore").setValue(0);
-                                                database.getReference().child(myUser.getUid()).child("opponent").setValue("");
-                                                Toast.makeText(Game.this, "YOU WON!", Toast.LENGTH_LONG).show();
-                                            }else if(getNumberMatches() == Integer.parseInt(snapshot.child("currentGameScore").getValue().toString())){
-                                                myTie += 1;
-                                                database.getReference().child(myUser.getUid()).child("ties").setValue(myTie);
-                                                database.getReference().child(myUser.getUid()).child("currentGameScore").setValue(0);
-                                                database.getReference().child(myUser.getUid()).child("opponent").setValue("");
-                                                Toast.makeText(Game.this, "YOU TIED!", Toast.LENGTH_LONG).show();
-                                            }else if(getNumberMatches() < Integer.parseInt(snapshot.child("currentGameScore").getValue().toString())){
-                                                myLoss += 1;
-                                                database.getReference().child(myUser.getUid()).child("losses").setValue(myLoss);
-                                                database.getReference().child(myUser.getUid()).child("currentGameScore").setValue(0);
-                                                Toast.makeText(Game.this, "YOU LOST!", Toast.LENGTH_LONG).show();
-                                            }
-                                            Intent intent = new Intent(Game.this, MainActivity.class);
-                                            startActivity(intent);
-                                        }
-                                    }
+                            if(opponent.gameOver == "true" && user.gameOver == "true") {
+                                // Win Status Checking
+                                if (user.currentGameScore > opponent.currentGameScore) {
+                                    Toast.makeText(Game.this, "You beat " + user.opponent + " by " +
+                                            (user.currentGameScore - opponent.currentGameScore) + " points.", Toast.LENGTH_LONG).show();
+                                    databaseReference.child("wins").setValue(user.wins + 1);
+                                    databaseReference.child("opponent").setValue("");
+                                } else if (user.currentGameScore == opponent.currentGameScore) {
+                                    Toast.makeText(Game.this, "You tied with " + user.opponent + " with " +
+                                            user.currentGameScore + " points.", Toast.LENGTH_LONG).show();
+                                    databaseReference.child("ties").setValue(user.ties + 1);
+                                    databaseReference.child("opponent").setValue("");
+                                } else if (user.currentGameScore < opponent.currentGameScore) {
+                                    Toast.makeText(Game.this, "You lost to " + user.opponent + " by " +
+                                            (user.currentGameScore - opponent.currentGameScore) + " points.", Toast.LENGTH_LONG).show();
+                                    databaseReference.child("losses").setValue(user.losses + 1);
+                                    databaseReference.child("opponent").setValue("");
                                 }
-                            }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                databaseReference.child("gameOver").setValue("false");
+                                user.gameOver = "false";
 
+                                Log.i("User Score: ", "" + user.currentGameScore);
+                                Log.i("Opponent Score: ", "" + opponent.currentGameScore);
                             }
-                        });
-                        //end if gameFlag == true
-                    }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    };
+
+                    opponentReference.addValueEventListener(opponentListener);
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(Game.this,
-                            "Read data failed", Toast.LENGTH_LONG).show();
+
                 }
-            });
+            };
+
+            database.getReference().addValueEventListener(listener);
+            databaseReference.child("gameOver").setValue("true");
 
             Intent intent = new Intent(Game.this, MainActivity.class);
             startActivity(intent);
