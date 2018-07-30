@@ -34,4 +34,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LeaderBoardActivity.class);
         startActivity(intent);
     }
+
+    public void buttonChatrooms(View view) {
+        Intent intent = new Intent(this, chatRoomList.class);
+        startActivity(intent);
+    }
 }

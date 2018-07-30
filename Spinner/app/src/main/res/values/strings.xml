@@ -40,5 +40,10 @@
     <string name="title_example">\"My New Game\"</string>
     <string name="scores">High Scores</string>
     <string name="in_lobby_please_wait">In lobby, please wait...</string>
+    <string name="type_name_of_chatroom">Type name of Chatroom...</string>
+    <string name="add_chatroom">Add Chatroom</string>
+    <string name="chatrooms">Chatrooms</string>
+    <string name="send_message">Send Message</string>
+    <string name="enter_message_50_characters_max">Enter Message, 25 characters max!</string>
 
 </resources>
