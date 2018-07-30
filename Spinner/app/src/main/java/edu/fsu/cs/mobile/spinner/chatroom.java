@@ -88,7 +88,6 @@ public class chatroom extends AppCompatActivity {
                 } else if (inputMessage.getText().toString().length() > 25) {
                     inputMessage.setError("Too many characters");
                 } else {
-
                     Map<String, Object> map = new HashMap<String, Object>();
                     tempKey = chatroomReference.push().getKey();
                     chatroomReference.updateChildren(map);
@@ -97,8 +96,11 @@ public class chatroom extends AppCompatActivity {
                     Map<String, Object> messageMap = new HashMap<String, Object>();
 
                     messageMap.put("name", username);
-                    messageMap.put("message", inputMessage.getText().toString());
+                    messageMap.put("message", removeWhitespace(inputMessage.getText().toString()));
                     ourMessage.updateChildren(messageMap);
+
+                    // Clear input after send
+                    inputMessage.setText("");
                 }
             }
         });     //end onClickListener
@@ -141,5 +143,9 @@ public class chatroom extends AppCompatActivity {
             chatUname = (String)((DataSnapshot)i.next()).getValue();
             chatMessages.append(chatUname + " : " + chatMsg + " \n");
         }
+    }
+
+    private String removeWhitespace(String s) {
+        return s.replace("\n", "");
     }
 }

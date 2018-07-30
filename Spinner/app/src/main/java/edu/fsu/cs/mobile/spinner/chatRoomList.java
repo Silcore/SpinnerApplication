@@ -55,8 +55,11 @@ public class chatRoomList extends AppCompatActivity {
                     enterRoom.setError("Field cannot be left blank");
                 }else {
                     Map<String, Object> map = new HashMap<String, Object>();
-                    map.put(enterRoom.getText().toString(), "");
+                    map.put(removeWhitespace(enterRoom.getText().toString()), "");
                     myChatrooms.updateChildren(map);
+
+                    // Reset room name
+                    enterRoom.setText("");
                 }
             }
         });
@@ -95,4 +98,8 @@ public class chatRoomList extends AppCompatActivity {
             }
         });
     }   //end onCreate
+
+    private String removeWhitespace(String s) {
+        return s.replace("\n", "");
+    }
 }
