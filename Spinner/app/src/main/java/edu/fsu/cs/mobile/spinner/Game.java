@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import java.util.Random;
 import android.hardware.SensorManager;
@@ -25,7 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class Game extends AppCompatActivity implements SensorEventListener {
+public class Game extends SpinnerBaseActivity implements SensorEventListener {
 
     Button mStart;
     TextView mTimer;
