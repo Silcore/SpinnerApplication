@@ -67,6 +67,16 @@ public class LeaderBoardActivity extends AppCompatActivity {
                 // Reverse to Descending Order
                 Collections.reverse(usernameList);
                 Collections.reverse(scoreList);
+                
+                
+                // HDavis - implement sorting the highscores by time here?
+                // variable that stores the time is time_val from NewGame.java
+                // maybe set it up like this:
+                // make a new string for each of the possible times allowed
+                // if(time_val == 30){
+                //     String h_score30 = highscore;
+                // }
+                
 
                 ArrayAdapter<String> usernameAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, usernameList);
                 ArrayAdapter<String> scoreAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, scoreList);
