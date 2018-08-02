@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.google.android.gms.signin.SignIn;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends SpinnerBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

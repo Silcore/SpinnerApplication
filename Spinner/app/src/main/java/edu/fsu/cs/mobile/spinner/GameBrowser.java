@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class GameBrowser extends AppCompatActivity {
+public class GameBrowser extends SpinnerBaseActivity {
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;

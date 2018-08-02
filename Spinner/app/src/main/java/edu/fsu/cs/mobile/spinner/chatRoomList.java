@@ -28,7 +28,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-public class chatRoomList extends AppCompatActivity {
+public class chatRoomList extends SpinnerBaseActivity {
 
     private Button chatroomSubmit;
     private Button chatroomDelete;

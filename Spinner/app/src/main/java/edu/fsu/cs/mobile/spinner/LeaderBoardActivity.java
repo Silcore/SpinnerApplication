@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class LeaderBoardActivity extends AppCompatActivity {
+public class LeaderBoardActivity extends SpinnerBaseActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private DatabaseReference databaseReference;

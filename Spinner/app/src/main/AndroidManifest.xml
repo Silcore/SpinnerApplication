@@ -33,9 +33,10 @@
 
         <!-- Social Activities -->
         <activity android:name=".ProfileActivity" />
+        <activity android:name=".FriendsSearchActivity" />
         <activity android:name=".LeaderBoardActivity" />
         <activity android:name=".chatRoomList" />
-        <activity android:name=".chatroom"></activity>
+        <activity android:name=".chatroom"/>
     </application>
 
 </manifest>

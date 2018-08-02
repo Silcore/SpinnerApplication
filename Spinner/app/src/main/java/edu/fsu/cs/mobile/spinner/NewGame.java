@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-public class NewGame extends AppCompatActivity {
+public class NewGame extends SpinnerBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
