@@ -71,35 +71,72 @@ public class chatRoomList extends AppCompatActivity {
                 if(enterRoom.getText().toString().matches("")) {
                     enterRoom.setError("Field cannot be left blank");
                 }else {
-                    Map<String, Object> map = new HashMap<String, Object>();
+                    final Map<String, Object> map = new HashMap<String, Object>();
 
                     /*
                     if the user has no chatroom then set it to one. If the user has a chatroom or the
                     chatroom name already exists tell them they cant make one
                      */
+
                     databaseReference.child("chatroom").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.hasChild("chatroom")) {
-                                //hasChild() prevents toString() nullptr exception
-                                if (!dataSnapshot.getValue().toString().matches("")) {
+                            Log.v("in ChatroomList ", "dataSnapshot = " + dataSnapshot);
+
+                            if(dataSnapshot.exists()) {
+                                //exists() prevents toString() nullptr exception
+                                if (dataSnapshot.getValue().toString().matches(enterRoom.getText().toString())) {
+                                    Log.v("in ChatroomList", "you already made this chatroom = "
+                                            + dataSnapshot.getKey());
+                                    enterRoom.setError("You already made this chatroom!");
                                     chatroomFlag = false;
+                                }else if(!dataSnapshot.getValue().toString().matches("")){
+                                    Log.v("in chatroomList", "you have a chatroom");
                                     enterRoom.setError("You already have a chatroom, sheesh!");
-                                }
+                                    chatroomFlag = false;
+                                }else
+                                    chatroomFlag = true;
+                            }else {
+                                //if theyve never made a chatroom create the row in the db and raise the flag
+                                databaseReference.child("chatroom").setValue("");
+                                chatroomFlag = true;
                             }
+
+                            if(chatroomFlag){
+                                myChatrooms.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                                            Log.v("in ChatroomList", "Chatroom is = " + snapshot);
+                                            if(snapshot.getKey().matches(enterRoom.getText().toString())){
+                                                //if someone already has a chatroom with the name you are trying to use
+                                                enterRoom.setError("You can't steal someone chatroom name! Be original");
+                                                chatroomFlag = false;
+                                                break;
+                                            }
+                                        }
+                                        if(chatroomFlag){
+                                            Log.v("in ChatroomList ", "The chatroom you entered is acceptable");
+                                            databaseReference.child("chatroom").setValue(enterRoom.getText().toString());
+                                            map.put(removeWhitespace(enterRoom.getText().toString()), "");
+                                            myChatrooms.updateChildren(map);
+                                            enterRoom.setText("");         //reset enter room
+                                            chatroomFlag = false;
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    }
+                                });
+                            }else
+                                chatroomFlag = true;                    //if a failed attempt reset the flag
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                         }
                     });         //end ValueEventListenerForSingleEvent
-
-                    if(chatroomFlag) {
-                        databaseReference.child("chatroom").setValue(enterRoom.getText().toString());
-                        map.put(removeWhitespace(enterRoom.getText().toString()), "");
-                        myChatrooms.updateChildren(map);
-                        enterRoom.setText("");
-                    }
                 }
             }
         });
@@ -124,6 +161,7 @@ public class chatRoomList extends AppCompatActivity {
                                 to circumvent the null ptr exception potentially lurking from toString()
                                  */
                                 if (dataSnapshot.getValue().toString().matches(enterRoom.getText().toString())) {
+                                    Log.v("in ChatroomList", "deleting the chatroom");
                                     myChatrooms.child(enterRoom.getText().toString()).removeValue();
                                     databaseReference.child("chatroom").setValue("");
                                 }else{
