@@ -76,6 +76,7 @@ public class LeaderBoardActivity extends AppCompatActivity {
                 // if(time_val == 30){
                 //     String h_score30 = highscore;
                 // }
+                // or set up new score lists based off the time
                 
 
                 ArrayAdapter<String> usernameAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, usernameList);
