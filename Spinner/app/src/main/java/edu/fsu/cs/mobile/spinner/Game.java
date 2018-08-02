@@ -33,6 +33,7 @@ public class Game extends AppCompatActivity implements SensorEventListener {
     TextView mDirection;
     String uname;
     String opponentKey;
+
     int myWins;
     int myLoss;
     int myTie;
@@ -41,10 +42,13 @@ public class Game extends AppCompatActivity implements SensorEventListener {
     private DatabaseReference databaseReference;
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
+    boolean isPressed = false;
+
     private static final int NORTH = 1;
     private static final int EAST = 2;
     private static final int SOUTH = 3;
     private static final int WEST = 4;
+    private static final int PRESS = 5;
     private static int TIMER_TIME;
     private static final int MILLISECS_TO_SEC = 1000;
 
@@ -124,6 +128,12 @@ public class Game extends AppCompatActivity implements SensorEventListener {
         }.start();
     }
 
+    public void onPress(View view) {
+        if ( currGame.getCallDirection() == PRESS ) {
+            isPressed = true;
+        }
+    }
+
     @Override
     public void onSensorChanged(SensorEvent event) {
         // if user changes direction check score and game direction
@@ -151,6 +161,9 @@ public class Game extends AppCompatActivity implements SensorEventListener {
         else if ( i == SOUTH ){
             return getString(R.string.south);
         }
+        else if ( i == PRESS ){
+            return getString(R.string.press);
+        }
         return "";
     }
 
@@ -170,32 +183,34 @@ public class Game extends AppCompatActivity implements SensorEventListener {
         }
         // converts from degrees to direction number
         // returns user's current direction (not used but helpful for testing)
-        private int setUserDirection( float degree ){
+        private int setUserDirection( float degree ) {
 
-            if ( ( degree >= 295 && degree <= 360 ) || ( degree > 360 && degree < 45 ) ){
+            if ((degree >= 295 && degree <= 360) || (degree > 360 && degree < 45)) {
                 UserDirection = NORTH;
-            }
-            else if ( degree >= 45 && degree < 135 ){
+            } else if (degree >= 45 && degree < 135) {
                 UserDirection = EAST;
-            }
-            else if ( degree >= 135 && degree < 225 ){
+            } else if (degree >= 135 && degree < 225) {
                 UserDirection = SOUTH;
-            }
-            else if ( degree >= 225 && degree < 295 ){
+            } else if (degree >= 225 && degree < 295) {
                 UserDirection = WEST;
             }
 
             // if user and call direction match and gametime is not zero and game is not over
             // increment score by one and pick new random call direction
-            if ( UserDirection == CallDirection && CallDirection != 0 && GameTime != 0 && !GameOver){
+            if (UserDirection == CallDirection && CallDirection != 0 && GameTime != 0 && !GameOver) {
                 NumberMatches++;
                 setCallDirection();
+            }
+            else if ( CallDirection == PRESS && isPressed && GameTime != 0 && !GameOver ){
+                NumberMatches++;
+                setCallDirection();
+                isPressed = false;
             }
             return UserDirection;
         }
         // calls random direction
         private void setCallDirection(){
-            CallDirection = rand.nextInt( 4 ) + 1;
+            CallDirection = rand.nextInt( 5 ) + 1;
         }
 
         private int getCallDirection(){
@@ -219,8 +234,13 @@ public class Game extends AppCompatActivity implements SensorEventListener {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     final ProfileActivity.User user = dataSnapshot.child(myUser.getUid()).getValue(ProfileActivity.User.class);
-                    final DatabaseReference opponentReference = database.getReference().child(opponentKey);
-
+                    final DatabaseReference opponentReference;
+                    if (opponentKey != null) {
+                        opponentReference = database.getReference().child(opponentKey);
+                    }
+                    else {
+                        opponentReference = null;
+                    }
                     // Check if current score is higher than saved high score, if so update
                     if(user.highscore < getNumberMatches())
                         databaseReference.child("highscore").setValue(getNumberMatches());
@@ -266,7 +286,9 @@ public class Game extends AppCompatActivity implements SensorEventListener {
                         }
                     };
 
-                    opponentReference.addValueEventListener(opponentListener);
+                    if (opponentReference != null) {
+                        opponentReference.addValueEventListener(opponentListener);
+                    }
                 }
 
                 @Override
