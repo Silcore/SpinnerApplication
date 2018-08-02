@@ -11,7 +11,7 @@
         android:id="@+id/newChatroom"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="56dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -23,20 +23,36 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/addChatroomButton"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/addChatroomButton"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="100dp"
+        android:layout_width="78dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="24dp"
-        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="64dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:background="@drawable/main_button"
         android:text="@string/add_chatroom"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/deleteChatroom"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:background="@drawable/main_button"
+        android:layout_width="77dp"
+        android:layout_height="47dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/delete_chatroom"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
     <ListView
         android:id="@+id/chatroomListView"
@@ -50,4 +66,5 @@
         app:layout_constraintVertical_bias="0.0">
 
     </ListView>
+
 </android.support.constraint.ConstraintLayout>

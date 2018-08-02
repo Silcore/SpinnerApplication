@@ -45,5 +45,6 @@
     <string name="chatrooms">Chatrooms</string>
     <string name="send_message">Send Message</string>
     <string name="enter_message_50_characters_max">Enter Message, 25 characters max!</string>
+    <string name="delete_chatroom">delete chatroom</string>
 
 </resources>
