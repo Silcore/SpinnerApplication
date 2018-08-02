@@ -66,6 +66,9 @@ public class chatRoomList extends AppCompatActivity {
         chatroomSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Remove Existing Errors Before Check
+                clearInputError();
+
                 /*hashes the name of the room with empty quotes because we just need the name
                  * of the room as a key, with no value */
                 if(enterRoom.getText().toString().matches("")) {
@@ -144,6 +147,9 @@ public class chatRoomList extends AppCompatActivity {
         chatroomDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Remove Existing Errors Before Check
+                clearInputError();
+
                 if(enterRoom.getText().toString().matches("")) {
                     enterRoom.setError("Field cannot be left blank");
                 }else {
@@ -177,6 +183,9 @@ public class chatRoomList extends AppCompatActivity {
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                         }
                     });         //end child.('chatroom') onDataChange
+
+                    // Reset Text to Nothing
+                    enterRoom.setText("");
                 }
             }
         });     //end deleteButton
@@ -218,5 +227,10 @@ public class chatRoomList extends AppCompatActivity {
 
     private String removeWhitespace(String s) {
         return s.replace("\n", "");
+    }
+
+    private void clearInputError() {
+        enterRoom.setError(null);
+        chatroomFlag = true;
     }
 }
