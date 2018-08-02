@@ -166,6 +166,14 @@ public class chatRoomList extends AppCompatActivity {
                                 /*
                                 to circumvent the null ptr exception potentially lurking from toString()
                                  */
+
+                                Log.v("in ChatroomList", "deleting the chatroom");
+                                Log.v("in ChatroomList", "dataSnapshot = " + dataSnapshot);
+
+                                Log.v("in ChatroomList", "datasnapshot.key =" + dataSnapshot.getKey());
+                                Log.v("in chatroomList", "enterRoom.getText = " + enterRoom.getText().toString());
+                                Log.v("in chatroomLIst", Boolean.toString(dataSnapshot.getValue().toString().matches(enterRoom.getText().toString())));
+
                                 if (dataSnapshot.getValue().toString().matches(enterRoom.getText().toString())) {
                                     Log.v("in ChatroomList", "deleting the chatroom");
                                     myChatrooms.child(enterRoom.getText().toString()).removeValue();
@@ -183,9 +191,6 @@ public class chatRoomList extends AppCompatActivity {
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                         }
                     });         //end child.('chatroom') onDataChange
-
-                    // Reset Text to Nothing
-                    enterRoom.setText("");
                 }
             }
         });     //end deleteButton
@@ -231,6 +236,5 @@ public class chatRoomList extends AppCompatActivity {
 
     private void clearInputError() {
         enterRoom.setError(null);
-        chatroomFlag = true;
     }
 }
