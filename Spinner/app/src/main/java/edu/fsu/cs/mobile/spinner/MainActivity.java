@@ -25,18 +25,8 @@ public class MainActivity extends SpinnerBaseActivity {
         startActivity(intent);
     }
 
-    public void buttonProfile(View view) {
-        Intent intent = new Intent(this, ProfileActivity.class);
-        startActivity(intent);
-    }
-
     public void buttonScores(View view) {
         Intent intent = new Intent(this, LeaderBoardActivity.class);
-        startActivity(intent);
-    }
-
-    public void buttonChatrooms(View view) {
-        Intent intent = new Intent(this, chatRoomList.class);
         startActivity(intent);
     }
 }

@@ -3,7 +3,7 @@
 
     <item android:title="Options Menu"
         app:showAsAction="always"
-        android:icon="@drawable/ic_menu_white_24dp">
+        android:icon="@drawable/ic_menu_white_50dp">
         <menu>
             <item android:id="@+id/options_main_menu"
                 android:icon="@drawable/ic_description_black_24dp"
@@ -11,6 +11,9 @@
             <item android:id="@+id/options_profile"
                 android:icon="@drawable/ic_account_box_black_24dp"
                 android:title="@string/profile"/>
+            <item android:id="@+id/options_chatrooms"
+                android:icon="@drawable/ic_message_black_24dp"
+                android:title="@string/chatrooms"/>
             <item android:id="@+id/options_friends_list"
                 android:icon="@drawable/ic_people_black_24dp"
                 android:title="@string/friends_list"/>

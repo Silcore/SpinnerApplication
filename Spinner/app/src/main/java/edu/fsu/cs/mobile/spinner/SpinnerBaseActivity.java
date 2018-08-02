@@ -20,11 +20,16 @@ public class SpinnerBaseActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.options_main_menu:
                 Intent mainIntent = new Intent(this, MainActivity.class);
+                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(mainIntent);
                 return true;
             case R.id.options_profile:
                 Intent profileIntent = new Intent(this, ProfileActivity.class);
                 startActivity(profileIntent);
+                return true;
+            case R.id.options_chatrooms:
+                Intent chatroomIntent = new Intent(this, chatRoomList.class);
+                startActivity(chatroomIntent);
                 return true;
             case R.id.options_friends_list:
                 // Intent friendsIntent = new Intent(this, FriendsListActivity.class);
