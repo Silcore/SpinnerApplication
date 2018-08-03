@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -118,6 +119,7 @@ public class FriendsSearchActivity extends SpinnerBaseActivity {
 
                 databaseReference.child("friendList").child(friendName).child("username").setValue(friendName);
                 databaseReference.child("friendList").child(friendName).child("dateAdded").setValue(new SimpleDateFormat("MM/dd/yyyy").format(new Date()));
+                Toast.makeText(FriendsSearchActivity.this, "You've friended " + friendName + "!", Toast.LENGTH_SHORT).show();
             }
         });
     }
