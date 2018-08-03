@@ -50,8 +50,11 @@ public class Game extends SpinnerBaseActivity implements SensorEventListener {
     private static final int SOUTH = 3;
     private static final int WEST = 4;
     private static final int PRESS = 5;
+    private static final int SHAKE = 6;
     private static int TIMER_TIME;
     private static final int MILLISECS_TO_SEC = 1000;
+
+    private long lastUpdate;
 
     private SensorManager mSensorManager;
 
@@ -80,6 +83,8 @@ public class Game extends SpinnerBaseActivity implements SensorEventListener {
 
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
+        lastUpdate =  System.currentTimeMillis();
+
         currGame = new SpinnerGame();
     }
 
@@ -88,6 +93,10 @@ public class Game extends SpinnerBaseActivity implements SensorEventListener {
         super.onResume();
         mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
                 SensorManager.SENSOR_DELAY_GAME);
+        mSensorManager.registerListener(this,
+                mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                SensorManager.SENSOR_DELAY_NORMAL);
+
     }
 
     @Override
@@ -138,9 +147,40 @@ public class Game extends SpinnerBaseActivity implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
         // if user changes direction check score and game direction
-        int i = currGame.setUserDirection(Math.round(event.values[0]));
-        mDirection.setText( directionToString( currGame.getCallDirection() ) );
-        mScore.setText( String.valueOf( currGame.getNumberMatches() ) );
+        if (event.sensor.getType() == Sensor.TYPE_ORIENTATION) {
+            int i = currGame.setUserDirection(Math.round(event.values[0]));
+            mDirection.setText(directionToString(currGame.getCallDirection()));
+            mScore.setText(String.valueOf(currGame.getNumberMatches()));
+        }
+        else if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
+            if (isShake(event)){
+                currGame.handleJump();
+            }
+        }
+
+    }
+
+    public boolean isShake(SensorEvent event){
+        float[] values = event.values;
+
+        float x = values[0];
+        float y = values[1];
+        float z = values[2];
+
+        // acceleration = (x^2 + y^2 + z^2) / g^2
+        float accelationSquareRoot = (x * x + y * y + z * z)
+                / (SensorManager.GRAVITY_EARTH * SensorManager.GRAVITY_EARTH);
+
+        long actualTime = event.timestamp;
+
+        if (accelationSquareRoot >= 2){
+            if (actualTime - lastUpdate < 200) {
+                return false;
+            }
+            lastUpdate = actualTime;
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -165,6 +205,10 @@ public class Game extends SpinnerBaseActivity implements SensorEventListener {
         else if ( i == PRESS ){
             return getString(R.string.press);
         }
+        else if ( i == SHAKE ){
+            return getString(R.string.shake);
+        }
+
         return "";
     }
 
@@ -212,7 +256,7 @@ public class Game extends SpinnerBaseActivity implements SensorEventListener {
         }
         // calls random direction
         private void setCallDirection(){
-            CallDirection = rand.nextInt( 5 ) + 1;
+            CallDirection = rand.nextInt( 6 ) + 1;
         }
 
         private int getCallDirection(){
@@ -226,6 +270,14 @@ public class Game extends SpinnerBaseActivity implements SensorEventListener {
         private void setGameTime(int time){
             GameTime = time;
         }
+
+        private void handleJump(){
+            if (CallDirection == SHAKE ){
+                NumberMatches++;
+                setCallDirection();
+            }
+        }
+
 
         private void endGame(){
             GameOver = true;

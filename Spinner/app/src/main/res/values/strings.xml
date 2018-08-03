@@ -17,6 +17,7 @@
     <string name="east">EAST!</string>
     <string name="west">WEST!</string>
     <string name="press">PRESS!</string>
+    <string name="shake">SHAKE!</string>
     <string name="ready">Ready?</string>
     <string name="start">Start</string>
     <string name="game_over">Game Over!</string>
