@@ -38,12 +38,6 @@ public class NewGame extends SpinnerBaseActivity {
                     bundle.putString("string title", str_title);
                     bundle.putInt("Time_in_seconds", time_val);
 
-                    //Intent intent = new Intent(NewGame.this, GameBrowser.class);
-                    //intent.putExtras(bundle);
-                    //startActivity(intent);   //now start GameBrowser
-
-                    // LaBelle - unsure how gamebrowser works
-                    // Temporary solution: created separate Game Activity with nested SpinnerGame Class
                     Intent intent = new Intent(NewGame.this, Game.class);
                     intent.putExtras(bundle);
                     startActivity(intent);
