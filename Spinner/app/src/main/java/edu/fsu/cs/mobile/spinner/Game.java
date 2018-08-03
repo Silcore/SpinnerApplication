@@ -178,6 +178,7 @@ public class Game extends SpinnerBaseActivity implements SensorEventListener {
 
         private void startGame(int time){
             GameOver = false;
+
             setGameTime(time);
             rand = new Random();
             setCallDirection();
@@ -231,7 +232,7 @@ public class Game extends SpinnerBaseActivity implements SensorEventListener {
             firebaseAuth = FirebaseAuth.getInstance();
             final FirebaseUser myUser = firebaseAuth.getCurrentUser();
             databaseReference = database.getReference().child(myUser.getUid());
-            ValueEventListener listener = new ValueEventListener() {
+            final ValueEventListener listener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     final ProfileActivity.User user = dataSnapshot.child(myUser.getUid()).getValue(ProfileActivity.User.class);
@@ -257,28 +258,28 @@ public class Game extends SpinnerBaseActivity implements SensorEventListener {
                             if(opponent.gameOver.equals("true") && user.gameOver.equals("true")) {
                                 // Win Status Checking
                                 if (user.currentGameScore > opponent.currentGameScore) {
+                                    Log.i("GAME.JAVA: ", "Your Score: " + user.currentGameScore + " | " + opponent.username + "'s Score: " + opponent.currentGameScore);
                                     Toast.makeText(Game.this, "You beat " + user.opponent + " by " +
                                             (user.currentGameScore - opponent.currentGameScore) + " points.", Toast.LENGTH_LONG).show();
                                     databaseReference.child("wins").setValue(user.wins + 1);
-                                    databaseReference.child("opponent").setValue("");
                                 } else if (user.currentGameScore == opponent.currentGameScore) {
+                                    Log.i("GAME.JAVA: ", "Your Score: " + user.currentGameScore + " | " + opponent.username + "'s Score: " + opponent.currentGameScore);
                                     Toast.makeText(Game.this, "You tied with " + user.opponent + " with " +
                                             user.currentGameScore + " points.", Toast.LENGTH_LONG).show();
                                     databaseReference.child("ties").setValue(user.ties + 1);
-                                    databaseReference.child("opponent").setValue("");
                                 } else if (user.currentGameScore < opponent.currentGameScore) {
+                                    Log.i("GAME.JAVA: ", "Your Score: " + user.currentGameScore + " | " + opponent.username + "'s Score: " + opponent.currentGameScore);
                                     Toast.makeText(Game.this, "You lost to " + user.opponent + " by " +
-                                            (user.currentGameScore - opponent.currentGameScore) + " points.", Toast.LENGTH_LONG).show();
+                                            (opponent.currentGameScore - user.currentGameScore) + " points.", Toast.LENGTH_LONG).show();
                                     databaseReference.child("losses").setValue(user.losses + 1);
-                                    databaseReference.child("opponent").setValue("");
                                 }
 
-                                databaseReference.child("gameOver").setValue("false");
-                                user.gameOver = "false";
-
-                                Log.i("User Score: ", "" + user.currentGameScore);
-                                Log.i("Opponent Score: ", "" + opponent.currentGameScore);
+                                databaseReference.child("opponent").setValue("");
+                                opponentReference.removeEventListener(this);
+                                database.getReference().removeEventListener(getReference());
                             }
+
+
                         }
 
                         @Override
@@ -295,6 +296,10 @@ public class Game extends SpinnerBaseActivity implements SensorEventListener {
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
+                }
+
+                protected ValueEventListener getReference() {
+                    return this;
                 }
             };
 
