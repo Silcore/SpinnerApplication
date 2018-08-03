@@ -1,13 +1,18 @@
 package edu.fsu.cs.mobile.spinner;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -96,6 +101,22 @@ public class FriendsSearchActivity extends SpinnerBaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {}
+        });
+
+        ((ListView) findViewById(R.id.addFriends_list)).setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String friendName = ((TextView)view).getText().toString();
+                Log.v("In FriendSearchActivity", "friendName=" + friendName);
+
+                firebaseAuth = FirebaseAuth.getInstance();
+                final FirebaseUser myUser = firebaseAuth.getCurrentUser();
+                databaseReference = database.getReference().child(myUser.getUid());
+
+                databaseReference.child("friendList").child(friendName).setValue(friendName);
+                finish();
+                startActivity(getIntent());         //reload activity
+            }
         });
     }
 }
