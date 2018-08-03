@@ -178,6 +178,7 @@ public class chatRoomList extends SpinnerBaseActivity {
                                     Log.v("in ChatroomList", "deleting the chatroom");
                                     myChatrooms.child(enterRoom.getText().toString()).removeValue();
                                     databaseReference.child("chatroom").setValue("");
+                                    enterRoom.setText("");         //reset enter room
                                 }else{
                                     //they're using an old account without a chatroom attribute
                                     enterRoom.setError("Not your chatroom! Meanie!");

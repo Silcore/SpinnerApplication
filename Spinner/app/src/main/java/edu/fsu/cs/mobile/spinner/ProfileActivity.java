@@ -44,11 +44,10 @@ public class ProfileActivity extends SpinnerBaseActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser myUser = firebaseAuth.getCurrentUser();
-        Intent i = getIntent();
 
-        if(i.getExtras() != null && i.getStringExtra("userUID") != null) {
+        if(getIntent().getExtras() != null && getIntent().getStringExtra("userUID") != null) {
             // uses provided UID to check another user profile
-            databaseReference = database.getReference().child(i.getStringExtra("userUID"));
+            databaseReference = database.getReference().child(getIntent().getStringExtra("userUID"));
         } else {
             //uses UID as a key to search for the user that is currently logged in
             databaseReference = database.getReference().child(myUser.getUid());
