@@ -23,7 +23,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class FriendsSearchActivity extends SpinnerBaseActivity {
     private FirebaseAuth firebaseAuth;
@@ -77,6 +79,7 @@ public class FriendsSearchActivity extends SpinnerBaseActivity {
 
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        usernameList.clear();
                         for(DataSnapshot data : dataSnapshot.getChildren()) {
                             String username;
 
@@ -106,16 +109,15 @@ public class FriendsSearchActivity extends SpinnerBaseActivity {
         ((ListView) findViewById(R.id.addFriends_list)).setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String friendName = ((TextView)view).getText().toString();
+                String friendName = ((TextView) view).getText().toString();
                 Log.v("In FriendSearchActivity", "friendName=" + friendName);
 
                 firebaseAuth = FirebaseAuth.getInstance();
                 final FirebaseUser myUser = firebaseAuth.getCurrentUser();
                 databaseReference = database.getReference().child(myUser.getUid());
 
-                databaseReference.child("friendList").child(friendName).setValue(friendName);
-                finish();
-                startActivity(getIntent());         //reload activity
+                databaseReference.child("friendList").child(friendName).child("username").setValue(friendName);
+                databaseReference.child("friendList").child(friendName).child("dateAdded").setValue(new SimpleDateFormat("MM/dd/yyyy").format(new Date()));
             }
         });
     }

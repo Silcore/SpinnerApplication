@@ -34,6 +34,7 @@
         <!-- Social Activities -->
         <activity android:name=".ProfileActivity" />
         <activity android:name=".FriendsSearchActivity" />
+        <activity android:name=".FriendListActivity" />
         <activity android:name=".LeaderBoardActivity" />
         <activity android:name=".chatRoomList" />
         <activity android:name=".chatroom"/>

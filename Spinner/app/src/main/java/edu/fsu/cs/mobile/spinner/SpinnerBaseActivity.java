@@ -32,8 +32,8 @@ public class SpinnerBaseActivity extends AppCompatActivity {
                 startActivity(chatroomIntent);
                 return true;
             case R.id.options_friends_list:
-                // Intent friendsIntent = new Intent(this, FriendsListActivity.class);
-                // startActivity(friendsIntent);
+                Intent friendsIntent = new Intent(this, FriendListActivity.class);
+                startActivity(friendsIntent);
                 return true;
             case R.id.options_add_friends:
                 Intent addIntent = new Intent(this, FriendsSearchActivity.class);
