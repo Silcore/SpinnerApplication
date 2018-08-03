@@ -51,5 +51,6 @@
     <string name="friends_search">Search by Username</string>
     <string name="friends_list">Friends List</string>
     <string name="add_friends">Add New Friends</string>
+    <string name="compass">compass</string>
 
 </resources>

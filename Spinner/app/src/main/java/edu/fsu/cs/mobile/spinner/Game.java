@@ -9,9 +9,17 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 import android.hardware.SensorManager;
 import android.os.CountDownTimer;
@@ -32,6 +40,7 @@ public class Game extends SpinnerBaseActivity implements SensorEventListener {
     TextView mTimer;
     TextView mScore;
     TextView mDirection;
+    ImageView mCompass;
     String uname;
     String opponentKey;
 
@@ -55,6 +64,8 @@ public class Game extends SpinnerBaseActivity implements SensorEventListener {
     private static final int MILLISECS_TO_SEC = 1000;
 
     private long lastUpdate;
+    private float currentDegree = 0.0f;
+    ArrayList<Float> degreeList = new ArrayList<>();
 
     private SensorManager mSensorManager;
 
@@ -80,6 +91,7 @@ public class Game extends SpinnerBaseActivity implements SensorEventListener {
         mTimer = (TextView) findViewById(R.id.timer_textView);
         mScore = (TextView) findViewById(R.id.score_textView);
         mDirection = (TextView) findViewById(R.id.direction_textView);
+        mCompass = (ImageView) findViewById(R.id.game_compass);
 
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
@@ -111,8 +123,8 @@ public class Game extends SpinnerBaseActivity implements SensorEventListener {
         if(timer != null)
             timer.onFinish();
 
-        currGame.endGame();
         mSensorManager.unregisterListener(this);
+        currGame.endGame();
     }
 
     public void ButtonClick(View view) {
@@ -158,6 +170,37 @@ public class Game extends SpinnerBaseActivity implements SensorEventListener {
             }
         }
 
+        // Compass Movement Calculations and Animations
+        float degree = Math.round(event.values[0]);
+        Log.i("CURRENT DEGREE", "" + degree);
+        degreeList.add(degree);
+
+        if(isAcceptableDegree(degreeList, degree)) {
+            RotateAnimation rotate = new RotateAnimation(currentDegree, -degree, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            rotate.setFillAfter(true);
+            rotate.setRepeatMode(Animation.INFINITE);
+            mCompass.startAnimation(rotate);
+            currentDegree = -degree;
+        }
+    }
+
+    private boolean isAcceptableDegree(ArrayList<Float> list, Float degree) {
+        Float runningSum = 0f;
+        Float runningAverage;
+
+        // Cap List Size at 20
+        if(list.size() > 20)
+            list.remove(0);
+
+        for(int i = 0; i < list.size(); i++) {
+            runningSum += list.get(i);
+        }
+
+        runningAverage = runningSum/list.size();
+        Log.e("RUNNING AVERAGE", "" + runningAverage);
+
+        // Acceptable if more than 10% of running average
+        return (degree > (runningAverage * 0.1));
     }
 
     public boolean isShake(SensorEvent event){
