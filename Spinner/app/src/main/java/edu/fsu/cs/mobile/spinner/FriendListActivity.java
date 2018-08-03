@@ -58,10 +58,7 @@ public class FriendListActivity extends SpinnerBaseActivity {
                 }
 
                 ArrayAdapter<String> friendListAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, friendList);
-                
-                // If it's the same adapter, don't update
-                if(((ListView) findViewById(R.id.friendList_list)).getAdapter() != friendListAdapter)
-                    ((ListView) findViewById(R.id.friendList_list)).setAdapter(friendListAdapter);
+                ((ListView) findViewById(R.id.friendList_list)).setAdapter(friendListAdapter);
             }
 
             @Override

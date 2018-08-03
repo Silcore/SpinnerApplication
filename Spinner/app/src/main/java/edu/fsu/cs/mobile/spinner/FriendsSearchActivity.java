@@ -39,14 +39,17 @@ public class FriendsSearchActivity extends SpinnerBaseActivity {
         setContentView(R.layout.activity_search_friends);
         final EditText usernameSearch = findViewById(R.id.addFriends_search);
 
+        final ArrayList<String> usernameList = new ArrayList<>();
+        final ArrayAdapter<String> usernameAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, usernameList);
+
         // Initialize ListView
         databaseReference = database.getReference();
-        Query query = databaseReference.orderByChild("username");
+        final Query query = databaseReference.orderByChild("username");
         query.addValueEventListener(new ValueEventListener() {
-            private ArrayList<String> usernameList = new ArrayList<>();
-
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                usernameList.clear();
+
                 for(DataSnapshot data : dataSnapshot.getChildren()) {
                     String username;
 
@@ -56,8 +59,9 @@ public class FriendsSearchActivity extends SpinnerBaseActivity {
                     }
                 }
 
-                ArrayAdapter<String> usernameAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, usernameList);
                 ((ListView) findViewById(R.id.addFriends_list)).setAdapter(usernameAdapter);
+                query.removeEventListener(this);
+                Log.e("FriendSearchActivity", "UPDATING LISTVIEW");
             }
 
             @Override
@@ -75,8 +79,6 @@ public class FriendsSearchActivity extends SpinnerBaseActivity {
                 databaseReference = database.getReference();
                 Query query = databaseReference.orderByChild("username");
                 query.addValueEventListener(new ValueEventListener() {
-                    private ArrayList<String> usernameList = new ArrayList<>();
-
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         usernameList.clear();
@@ -92,9 +94,7 @@ public class FriendsSearchActivity extends SpinnerBaseActivity {
                                 usernameList.add(username);
                             }
                         }
-
-                        ArrayAdapter<String> usernameAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, usernameList);
-                        ((ListView) findViewById(R.id.addFriends_list)).setAdapter(usernameAdapter);
+                        usernameAdapter.notifyDataSetChanged();
                     }
 
                     @Override
