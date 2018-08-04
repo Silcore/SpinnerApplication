@@ -1,0 +1,2 @@
+KNOWN BUGS:
+- When using the “add chatroom” and “delete chatroom” buttons immediately after accessing a friend’s profile, the friend’s profile will reappear instead of performing the button click. No idea how to fix this.
